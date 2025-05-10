@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta a Mamá</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to bottom, #f8e1e9, #fff); /* Color original */
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            /* Fondo decorativo con corazones en tono original */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path d="M20 10c-2-4-6-6-9-4-4 2-4 8 0 10l9 8 9-8c4-2 4-8 0-10-3-2-7 0-9 4z" fill="rgba(107, 78, 113, 0.1)"/></svg>');
+            background-repeat: repeat;
+            background-size: 40px 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        .header {
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            color: #6b4e71; /* Color original */
+            margin: 0;
+            animation: fadeIn 1s ease-in;
+        }
+        .spotify-player {
+            margin: 20px auto;
+            max-width: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .spotify-player iframe {
+            width: 100%;
+            height: 80px;
+            border: none;
+        }
+        .play-instruction {
+            font-size: 1em;
+            color: #6b4e71; /* Color original */
+            margin: 10px 0;
+            font-style: italic;
+        }
+        .section {
+            margin: 40px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.8s forwards;
+            animation-delay: calc(0.2s * var(--delay));
+        }
+        .section p {
+            font-size: 1.2em;
+            color: #4a4a4a;
+            margin: 0;
+        }
+        .section img {
+            max-width: 100%;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            margin: 20px auto;
+            border-radius: 10px;
+            display: block;
+        }
+        .footer {
+            margin-top: 60px;
+            padding: 20px;
+            background: #6b4e71; /* Color original */
+            color: #fff;
+            border-radius: 10px;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        /* Corazones flotantes en los lados */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 6c-1-2-3-3-4.5-2-2 1-2 4 0 5l4.5 4 4.5-4c2-1 2-4 0-5-1.5-1-3.5 0-4.5 2z" fill="rgba(107, 78, 113, 0.5)"/></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0;
+            animation: float 10s infinite;
+            z-index: 0;
+        }
+        .heart:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 10%; top: 50%; animation-delay: 2s; }
+        .heart:nth-child(3) { right: 5%; top: 30%; animation-delay: 4s; }
+        .heart:nth-child(4) { right: 10%; top: 60%; animation-delay: 6s; }
+        @keyframes float {
+            0% { opacity: 0; transform: translateY(0) scale(1); }
+            50% { opacity: 0.7; transform: translateY(-50px) scale(1.2); }
+            100% { opacity: 0; transform: translateY(-100px) scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .header h1 { font-size: 2em; }
+            .section p { font-size: 1em; }
+            .section img {
+                max-height: 200px;
+                width: auto;
+                height: auto;
+            }
+            .spotify-player {
+                max-width: 100%;
+            }
+            .spotify-player iframe {
+                height: 80px;
+            }
+            .play-instruction { font-size: 0.9em; }
+            .heart { display: none; } /* Oculta corazones en móviles */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Para ti, Mamá</h1>
+            <!-- Reproductor de Spotify incrustado -->
+            <div class="spotify-player">
+                <iframe src="https://open.spotify.com/embed/track/2qPSa6HXjzwa9sLhNGpA1T?utm_source=generator" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+            <p class="play-instruction">Haz clic en el reproductor para escuchar la música mientras lees</p>
+        </div>
+
+        <div class="section" style="--delay: 1;">
+            <p>Eras el cielo antes de que pudiera nombrarlo, fuiste abrigo antes de que supiera del frío.</p>
+            <img src="Imagenes/img1.jpg" alt="Descripción">
+        </div>
+
+        <div class="section" style="--delay: 2;">
+            <p>Tus manos fueron mi primer refugio, y tu voz, el himno más seguro del mundo.</p>
+            <img src="Imagenes/img2.jpg" alt="Descripción">
+        </div>
+
+        <div class="section" style="--delay: 3;">
+            <p>No supe cuánto dolía el amor hasta que vi tus ojos cansados, pero aún así, llenos de ternura por alguien que a veces no entendía cuánto dabas.</p>
+            <img src="Imagenes/img3.jpg" alt="Descripción">
+        </div>
+
+        <div class="section" style="--delay: 4;">
+            <p>Callaste dolores que no merecías, y aun así, fuiste puente para que yo no cayera.</p>
+        </div>
+
+        <div class="section" style="--delay: 5;">
+            <p>Me diste alas sin pedir que me quedara, pero aún vuelo con el recuerdo de tus abrazos.</p>
+            <img src="Imagenes/img4.jpg" alt="Descripción">
+        </div>
+
+        <div class="section" style="--delay: 6;">
+            <p>Si alguna vez te fallé, guárdalo en un rincón suave del alma, porque cada día de mi vida te he amado más de lo que sé decirte.</p>
+        </div>
+
+        <div class="section" style="--delay: 7;">
+            <p>Y si un día ya no estás para escucharme entonces susúrrame en los sueños, que sabré que aún me hablas como cuando dormía en tu pecho.</p>
+            <img src="Imagenes/img5.jpg" alt="Descripción">
+        </div>
+
+        <div class="footer">
+            <p>Con todo mi amor, siempre tuyo.</p>
+        </div>
+    </div>
+
+    <!-- Corazones flotantes -->
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+
+    <script>
+        // Animación suave al cargar la página
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.opacity = '0';
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
